@@ -16,13 +16,13 @@ Prerequisites
 
     sudo systemctl disable systemd-resolved --now
     sudo systemctl stop systemd-resolved
-    
+
 
 ### To disable `dnsmasq`:
 
     sudo systemctl disable dnsmasq --now
     sudo systemctl stop dnsmasq
-    
+
 
 * * *
 
@@ -38,27 +38,27 @@ In the project directory, create a `.env` file with the following content. Custo
     PDNS_DB_PASS=yourpassword
     PDNS_DB_NAME=powerdns-auth
     PDNS_API_KEY=supersecretapikey
-    
+
     ADMIN_DB_USER=pda
     ADMIN_DB_PASS=yourpassword
     ADMIN_DB_NAME=pda
-    
+
     MYSQL_EXTERNAL_PORT=3306
-    
+
 
 ### 2\. Start the containers
 
 Run this command to start all services in detached mode:
 
     docker compose up -d
-    
+
 
 ### 3\. Access the PowerDNS-Admin UI
 
 Open your browser and go to:
 
     http://<server-ip>:9191
-    
+
 
 ### 4\. Create the admin account
 
@@ -70,10 +70,10 @@ Open your browser and go to:
 In PowerDNS-Admin settings, configure the connection to the authoritative server API at:
 
     http://auth:8081
-    
+
 
 Use the API key you defined in the `.env` file (`supersecretapikey` by default).
-And set the version to be PowerDNS Authoritative Server version: **4.7.2**
+And set the version to be PowerDNS Authoritative Server version: **4.7.3**
 
 * * *
 

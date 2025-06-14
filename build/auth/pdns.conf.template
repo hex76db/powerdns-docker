@@ -1,0 +1,32 @@
+# PowerDNS Authoritative Server configuration
+
+# Backend configuration (MySQL)
+launch=gmysql
+gmysql-host=database
+gmysql-user=${PDNS_DB_USER}
+gmysql-password=${PDNS_DB_PASS}
+gmysql-dbname=${PDNS_DB_NAME}
+gmysql-port=3306
+
+# Webserver / API configuration
+webserver=yes
+webserver-address=0.0.0.0
+webserver-port=8081
+
+api=yes
+api-key=${PDNS_API_KEY}
+
+# Other useful options
+daemon=no
+setgid=pdns
+setuid=pdns
+
+# Zone settings
+allow-axfr-ips=0.0.0.0/0
+allow-dnsupdate-from=0.0.0.0/0
+
+# Max simultaneous TCP connections
+max-tcp-connections=100
+
+# Enable statistics on webserver
+webserver-allow-from=0.0.0.0/0

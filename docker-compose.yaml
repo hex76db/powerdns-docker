@@ -1,0 +1,40 @@
+services:
+  auth:
+    build:
+      context: ./build/auth
+    env_file:
+      - .env
+    restart: always
+    ports:
+      - "53:53"
+  admin:
+    image: powerdnsadmin/pda-legacy:latest
+    ports:
+      - "9191:80"
+    env_file:
+      - .env
+    restart: always
+    environment:
+      - SQLALCHEMY_DATABASE_URI=mysql://${ADMIN_DB_USER}:${ADMIN_DB_PASS}@database/${ADMIN_DB_USER}
+      - GUNICORN_TIMEOUT=60
+      - GUNICORN_WORKERS=2
+      - GUNICORN_LOGLEVEL=DEBUG
+  database:
+    build:
+      context: ./build/database
+    restart: always
+    env_file:
+      - .env
+    environment:
+      MYSQL_ROOT_PASSWORD: ${PDNS_DB_PASS}
+      MYSQL_DATABASE: ${PDNS_DB_NAME}
+      MYSQL_USER: ${PDNS_DB_USER}
+      MYSQL_PASSWORD: ${PDNS_DB_PASS}
+
+      MYSQL_DATABASE2: ${ADMIN_DB_NAME}
+      MYSQL_USER2: ${ADMIN_DB_USER}
+      MYSQL_PASSWORD2: ${ADMIN_DB_PASS}
+    ports:
+      - "${MYSQL_EXTERNAL_PORT}:3306"
+    volumes:
+      - ./database:/var/lib/mysql
