@@ -6,7 +6,8 @@ services:
       - .env
     restart: always
     ports:
-      - "53:53"
+      - "53:53/tcp"
+      - "53:53/udp"
   admin:
     image: powerdnsadmin/pda-legacy:latest
     ports:
